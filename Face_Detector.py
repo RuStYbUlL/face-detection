@@ -5,7 +5,7 @@ from random import randrange
 # Load pretrained data of front face images from opencv (haar cascade algorithm)
 trained_face_data = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-''' 
+'''
 #IMAGES
 
 # Choose  an image to detect faces 
@@ -38,8 +38,8 @@ cv2.imshow("Face detector", img)  #(window title, image)
 cv2.waitKey() #empty parameter- waits inifintely till a key is pressed or it automatically hits a key
 
 print("Code Completed")
-'''
 
+'''
 #VIDEO
 
 # Capture video from webcam
@@ -53,9 +53,22 @@ while (True):
     # Change to grey scale
     greyscaled_img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
 
+    # Detect faces
+    face_coordinates = trained_face_data.detectMultiScale(greyscaled_img) # detectMiltuScale detect objects of different sizes in the inout image
+
+    # Draw rectangle around the faces
+    for (x, y, w, h) in face_coordinates:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 5) # 1st tuple - x, y coordinates. 2nd - width+x, height+y. 3rd - color code. Last number - thickness of rectangle
+
     #Display video
-    cv2.imshow("Face detector", greyscaled_img)  #(window title, image)
+    cv2.imshow("Face detector", frame)  #(window title, image)
 
-    cv2.waitKey(1) #Delays for 1 millisecond before hitting a key itself 
+    key = cv2.waitKey(1) #Delays for 1 millisecond before hitting a key itself 
 
+    # Stop if Q/q is pressed
+    if (key == 81 or key == 113 ):
+        break
+
+    # Release video capture object
+    webcam.release
     print("Code Completed")
