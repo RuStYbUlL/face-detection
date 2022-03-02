@@ -1,3 +1,3 @@
 #Clever Programmer Tutorials
 
-Learning to use Machine learning for face recognition.
+Learning to use Machine learning for face detection.
